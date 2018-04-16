@@ -92,100 +92,36 @@
                 </li>
 
 
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#pages"><i
-                                class="fa fa-fw fa-file"></i> Pages <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="pages" class="{{(Request::is('*pages*'))?'':'collapse'}}">
-                        <li>
-                            <a href="{{url('/admin/pages')}}"> All Pages</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/admin/pages/create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#segments"><i
-                                class="fa fa-fw fa-file"></i> Segments <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="segments" class="{{(Request::is('*segments*'))?'':'collapse'}}">
-                        <li>
-                            <a href="{{url('/admin/segments')}}"> All Segments</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/admin/segments/create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
 
                 <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#images">
-                        <i class="fa fa-fw fa-picture-o"></i> Images <i class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="images" class="{{(Request::is('*images*'))?'':'collapse'}}">
-                        <li>
-                            <a href="{{url('/admin/images')}}"> All Images</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/admin/images/create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#carousels">
-                        <i class="fa fa-file" aria-hidden="true"></i> Carousels <i
+                    <a href="javascript:;" data-toggle="collapse" data-target="#contact_lists">
+                        <i class="fa fa-file" aria-hidden="true"></i> Contact lists <i
                                 class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="carousels" class="{{(Request::is('*documents*'))?'':'collapse'}}">
+                    <ul id="contact_lists" class="{{(Request::is('*contact*lists*'))?'':'collapse'}}">
                         <li>
-                            <a href="{{url('/admin/carousels')}}"> All Carousels</a>
+                            <a href="{{url('/admin/contact-lists')}}"> Contact lists</a>
                         </li>
                         <li>
-                            <a href="{{url('/admin/carousels/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
-                                Add New</a>
+                            <a href="{{url('/admin/contact-lists/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add New List</a>
                         </li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#documents">
-                        <i class="fa fa-file" aria-hidden="true"></i> Documents <i
+                    <a href="javascript:;" data-toggle="collapse" data-target="#contacts">
+                        <i class="fa fa-file" aria-hidden="true"></i> Contacts <i
                                 class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="documents" class="{{(Request::is('*documents*'))?'':'collapse'}}">
+                    <ul id="contacts" class="{{(Request::is('*contacts*'))?'':'collapse'}}">
                         <li>
-                            <a href="{{url('/admin/documents')}}"> All Documents</a>
+                            <a href="{{url('/admin/contacts')}}"> Contacts</a>
                         </li>
                         <li>
-                            <a href="{{url('/admin/documents/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
-                                Add New</a>
+                            <a href="{{url('/admin/contacts/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add New Contact</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#testimonials">
-                        <i class="fa fa-quote-left" aria-hidden="true"></i> Testimonials <i
-                                class="fa fa-fw fa-caret-down"></i></a>
-                    <ul id="testimonials" class="{{(Request::is('*testimonials*'))?'':'collapse'}}">
-                        <li>
-                            <a href="{{url('/admin/testimonials')}}"> All Testimonials</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/admin/testimonials/create')}}">Add New</a>
-                        </li>
-                    </ul>
-                </li>
-
-                {{--<li>--}}
-                {{--<a href="javascript:;" data-toggle="collapse" data-target="#authors">--}}
-                {{--<i  class="fa fa-fw fa-user"></i> Authors <i class="fa fa-fw fa-caret-down"></i></a>--}}
-                {{--<ul id="authors" class="{{(Request::is('*authors*'))?'':'collapse'}}">--}}
-                {{--<li>--}}
-                {{--<a href="{{url('/admin/authors')}}"> All Authors</a>--}}
-                {{--</li>--}}
-                {{--<li>--}}
-                {{--<a href="{{url('/admin/authors/create')}}">Add New</a>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-
 
                 <li>
                     <a href="javascript:;" data-toggle="collapse" data-target="#admin_users">
