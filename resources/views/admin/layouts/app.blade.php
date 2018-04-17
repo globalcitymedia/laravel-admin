@@ -22,7 +22,7 @@
 
     <!-- Custom Fonts -->
     <link href="/theme/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="icon" type="image/png" href="/theme/arcs3/assets/images/favicon.png"/>
+    <link rel="icon" type="image/png" href="/theme/gcm/assets/images/favicon.png"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +55,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="{{url('/')}}"><img src="/theme/basic/assets/images/herbie-logo.png" alt=""/>
+            <a class="navbar-brand" href="{{url('/')}}"><img src="/theme/basic/assets/images/gcm-logo.png" alt=""/>
                 {{-- {{config('variables.product_name')}} Admin--}}</a>
         </div>
         <!-- Top Menu Items -->
