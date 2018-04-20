@@ -50,8 +50,6 @@ class LoginController extends Controller
     {
         $credentials =  $request->only($this->username(), 'password');
 
-        dd($request);
-        
         $credentials['status'] = 1;
         $credentials['role'] = 'admin';
 
@@ -74,9 +72,6 @@ class LoginController extends Controller
             switch ($user->role):
                 case 'admin':
                     $redirectTo = '/admin';
-                    break;
-                case 'member':
-                    $redirectTo = '/member';
                     break;
                 default:
                     $redirectTo = '/admin';

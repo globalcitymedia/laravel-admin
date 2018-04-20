@@ -13,7 +13,7 @@ class ContactRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,23 @@ class ContactRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $rules = [];
+
+        $rules = [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:contacts,email'
         ];
+
+
+        if($this->method() == 'PATCH'):
+            $url = explode('/',$this->path());
+            $user_id = array_last($url);
+            //dd($url);
+            $rules ['email'] = 'required|email|max:255|unique:contacts,email,'.$user_id;
+        endif;
+
+
+        return $rules;
     }
 }

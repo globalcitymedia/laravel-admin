@@ -10,7 +10,7 @@ return [
     /*Company name and */
     'paginate_count' => '20',
     'company_name' => 'Global City Media',
-    'product_name' => 'GLP Mail',
+    'product_name' => 'Global City Media',
 
     'tel' => '+44 (0) 20 7193 5801',
     'address' => '',

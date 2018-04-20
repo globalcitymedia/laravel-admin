@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('auth.login');
+//});
 
+Route::get('/', 'Auth\LoginController@showLoginForm');
 Auth::routes();
 
 
@@ -30,4 +31,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
 //    });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Admin\HomeController@index');

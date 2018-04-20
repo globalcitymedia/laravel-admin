@@ -171,9 +171,10 @@ a {
 }
 
 .navbar-brand > img {
-    max-width: 210px;
+    max-width: 60px;
+    border-radius: 10px;
 }
-
+.navbar-header a{}
 /*.dropdown-menu {background: none;}*/
 
 .breadcrumb {

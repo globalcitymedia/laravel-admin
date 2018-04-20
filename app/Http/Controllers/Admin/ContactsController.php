@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contact;
 use App\ContactList;
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,7 @@ class ContactsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
         $request['created_by'] = Auth::user()->id;
         $request['updated_by'] = Auth::user()->id;
@@ -94,7 +95,7 @@ class ContactsController extends Controller
      * @param  \App\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(ContactRequest $request, Contact $contact)
     {
         $request['updated_by'] = Auth::user()->id;
         $contact->update($request->all());

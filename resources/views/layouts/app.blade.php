@@ -69,73 +69,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{url('/')}}"><img src="/theme/basic/assets/images/herbie-logo.png" alt=""/></a>
+                <a class="navbar-brand" href="{{url('/')}}"><img src="/theme/basic/assets/images/gcm-logo.png" alt=""/></a>
+                <a style="padding-top: 50px;" class="navbar-brand" href="#">{{config('variables.company_name')}}</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{url('/')}}"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-                    <li class=" @if(Request::is('*options*')) active @endif">
-                        <a href="{{url('/membership-options')}}"  class="dropdown-toggle" data-toggle="dropdown">Membership Options <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{url('/why-become-a-member/')}}">Why Become a Member</a></li>
-                            <li><a href="{{url('/corporate-individual/')}}">Corporate & Individual</a></li>
-                            <li><a href="{{url('/levels-of-membership/')}}">Levels of Membership</a></li>
-                        </ul>
-
-
-                    </li>
-                     <li class=" @if(Request::is('*benefits*')) active @endif">
-                        <a href="{{url('/membership-benefits')}}"  class="dropdown-toggle" data-toggle="dropdown">Membership Benefits <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{url('/membership-benefits/')}}">Membership Benefits</a></li>
-                            <li><a href="{{url('/partners/')}}">Partners</a></li>
-                        </ul>
-
-
-                    </li>
-
-                    <li class="@if(Request::is('*about*')) active @endif"><a href="{{url('/about')}}">About</a></li>
-                    <li class="@if(Request::is('*contact*')) active @endif"><a href="{{url('/contact')}}">Contact</a></li>
-                    {{--<li class="@if(Request::is('*contact*')) active @endif"><a href="{{url('/contact')}}">Contact</a></li>--}}
-
-
-
-                    @if (!Auth::guest())
-
-                        <li >
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-expanded="false">
-                                {{ Auth::user()->first_name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-
-                                @if(Auth::user()->isAdmin())
-                                    <li><a href="{{url('/admin')}}">Admin</a></li>
-                                @endif
-
-                                <li>
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-
-                </ul>
-            </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 </header>
@@ -178,22 +115,6 @@
         <div class="row">
             <div class="col-sm-6">
                 <p class="">Copyright &copy; {{config('variables.company_name')}} {{Date('Y')}}</p>
-                <p class="">79 College Road, Harrow, Middlesex, England, HA1 1BD.</p>
-                <p><a href="/en/term-pages/terms-and-conditions">Terms &amp; Conditions</a>&nbsp;| <a href="/en/term-pages/privacy-policy1">Privacy Policy</a></p>
-                {{--<div class="footer-social pull-left">--}}
-                    {{--<a href="{{config('variables.twitter')}}" target="_blank"><i class="fa fa-twitter"></i></a>--}}
-                    {{--<a href="{{config('variables.linkedin')}}" target="_blank"><i class="fa fa-linkedin"></i></a>--}}
-                    {{--<a href="{{config('variables.instagram')}}" target="_blank"><i class="fa fa-instagram"></i></a>--}}
-                {{--</div>--}}
-            </div>
-
-            <div class="col-sm-4 pull-right">
-                <div class="footer-logo">
-                    <img src="/theme/basic/assets/images/abta-logo.png" alt=""/>
-                </div>
-            </div>
-
-
         </div>
     </div>
 </footer>
