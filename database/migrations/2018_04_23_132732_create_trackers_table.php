@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactAuditsTable extends Migration
+class CreateTrackersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateContactAuditsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contact_audits', function (Blueprint $table) {
+        Schema::create('trackers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('contact_id')->unsigned()->nullable();
-            $table->ipAddress('ip_address')->nullable();
+            $table->string('user')->nullable();
+            $table->string('user_type')->nullable();
+            $table->string('ip_address')->nullable();
             $table->string('desc')->nullable();
-            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateContactAuditsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contact_audits');
+        Schema::dropIfExists('trackers');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Tracker;
 
 class LoginController extends Controller
 {
@@ -61,12 +62,12 @@ class LoginController extends Controller
         $user = Auth::user();
         if (!is_null($user)):
             //dd($user->role);
-            //$tracker = new Tracker();
-            $ip_add = $_SERVER['REMOTE_ADDR'];
+
+
 
             //dd($ip_add);
-
-            //$tracker->track($ip_add);
+            $tracker = new Tracker();
+            $tracker->track('Signed in');
 
 
             switch ($user->role):

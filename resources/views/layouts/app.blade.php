@@ -17,7 +17,9 @@
     @endif
     <meta name="google-site-verification" content="nfRqJhDJk90GCaMvwyBzXtsvDBEJh5GGDUwfchaoYzE" />
     <meta charset="utf-8">
-    <title>{{ (isset($title)?$title.' | ':'') }} Herbie & Co</title>
+    <title>
+        {{isset($page_title)?$page_title.' | ':''}}{{config('variables.product_name')}}
+    </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <!-- CSRF Token -->
@@ -104,7 +106,11 @@
     </div>
 
 @endif
-
+@if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+@endif
 @yield('content')
 
 

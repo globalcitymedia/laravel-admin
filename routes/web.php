@@ -15,7 +15,10 @@
 //    return view('auth.login');
 //});
 
-Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
+Route::get('/verify/{verification_key}','SignupController@verify')->name('verify');
+Route::get('/verified/{verification_key}','SignupController@verified')->name('verified');
+
 Auth::routes();
 
 

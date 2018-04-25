@@ -16,6 +16,7 @@ return [
     'address' => '',
 
     'archive_datetime' => date_format(new DateTime('+730 Days'), 'Y-m-d\TH:i'),
+    'renewal_datetime' => date_format(new DateTime('+730 Days'), 'Y-m-d\TH:i'),
     'current_datetime' => date_format(new DateTime(), 'Y-m-d\TH:i'),
 
 

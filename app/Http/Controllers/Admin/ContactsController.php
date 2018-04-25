@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Contact;
 use App\ContactList;
 use App\Http\Requests\ContactRequest;
+use App\Tracker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -53,13 +54,21 @@ class ContactsController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        $request['created_by'] = Auth::user()->id;
-        $request['updated_by'] = Auth::user()->id;
+        //$request['created_by'] = Auth::user()->id;
+        $request['verification_key'] = str_random(25);
+        $request['renewal_date'] = config('variables.renewal_datetime');
+
         $contact = new Contact($request->all());
         //dd($contact);
-        $contact->saveOrFail($contact->toArray());
+        //$contact->saveOrFail($contact->toArray());
+
+        $contact->signup($contact);
+
+        $tracker = new Tracker();
+        $tracker->track('Contact created: '.$request['email']);
 
         return redirect($this->admin_url);
+
     }
 
     /**
@@ -99,7 +108,8 @@ class ContactsController extends Controller
     {
         $request['updated_by'] = Auth::user()->id;
         $contact->update($request->all());
-
+        $tracker = new Tracker();
+        $tracker->track('Contact updated: '.$request['email']);
         return redirect($this->admin_url);
     }
 
@@ -112,7 +122,8 @@ class ContactsController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-
+        $tracker = new Tracker();
+        $tracker->track('Contact deleted: '.$contact->email);
         return redirect($this->admin_url);
     }
 }

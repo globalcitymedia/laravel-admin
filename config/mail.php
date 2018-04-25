@@ -70,7 +70,7 @@ return [
     | transport layer security protocol should provide great security.
     |
     */
-
+    //'encryption' => env('MAIL_ENCRYPTION'),
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /*
@@ -120,4 +120,11 @@ return [
         ],
     ],
 
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
 ];

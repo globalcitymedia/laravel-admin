@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
 
-    <title>{{isset($page_title)?$page_title.' | ':''}}{{config('variables.product_name')}} Admin
+    <title>{{isset($page_title)?$page_title.' | ':''}}{{config('variables.product_name')}}
         - {{config('variables.company_name')}}</title>
 
     <!-- Bootstrap Core CSS -->

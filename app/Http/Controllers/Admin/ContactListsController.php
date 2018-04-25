@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\ContactList;
+use App\Tracker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +55,20 @@ class ContactListsController extends Controller
         $request['updated_by'] = Auth::user()->id;
         $contact_list = new ContactList($request->all());
         //dd($contact_list);
-        $contact_list->saveOrFail($contact_list->toArray());
 
-        return redirect($this->admin_url);
+        // Get uploaded CSV file
+        $file = $request->file('csv');
+        dump($file);
+        dd($request);
+
+
+        //$contact_list->saveOrFail($contact_list->toArray());
+
+        //dd($ip_add);
+        //$tracker = new Tracker();
+        //$tracker->track('New contact list: '.$request['name']);
+
+        //return redirect($this->admin_url);
     }
 
     /**
@@ -97,6 +109,8 @@ class ContactListsController extends Controller
         $request['updated_by'] = Auth::user()->id;
         $contactList->update($request->all());
 
+        $tracker = new Tracker();
+        $tracker->track('Contact list updated: '.$request['name']);
         return redirect($this->admin_url);
     }
 
@@ -109,7 +123,57 @@ class ContactListsController extends Controller
     public function destroy(ContactList $contactList)
     {
         $contactList->delete();
-
+        $tracker = new Tracker();
+        $tracker->track('Contact list deleted: '.$contactList->name);
         return redirect($this->admin_url);
     }
+
+
+
+    private function csvToArray($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+            return false;
+
+        $header = null;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        return $data;
+    }
+
+    private function uploadFile($file){
+        $date = Carbon::now();
+        //get the original file name
+        $uploaded['original_filename'] = $file->getClientOriginalName();
+        //dump($file->path());
+        //get a unique file name
+        $uploaded['filename'] = $date->getTimestamp().$uploaded['original_filename'];
+        //store the file
+        $uploaded['path'] = $file->storeAs('images',$uploaded['filename'],'local');
+
+        //create thumb nail
+        $image_manager = new ImageManager(array('driver' => 'gd'));
+
+        $image = $image_manager->make($file->path())
+            ->resize(150, null, function ($constraint) {$constraint->aspectRatio();})
+            ->save(storage_path('app\public\images\thumb\\').$uploaded['filename']);
+
+        //Image::make(Input::file('photo'))->resize(300, 200)->save('foo.jpg');
+        //dd(storage_path('app\public\images\thumb\\').$uploaded['filename']);
+
+        return $uploaded;
+    }
+
+
 }

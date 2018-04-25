@@ -20,9 +20,8 @@ class CreateContactsTable extends Migration
             $table->string('email')->unique();
             $table->string('status')->nullable();
             $table->string('email_verified')->nullable();
-            $table->string('activation_key')->nullable();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
+            $table->string('verification_key')->nullable();
+            $table->string('renewal_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
