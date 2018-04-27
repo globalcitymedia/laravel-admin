@@ -4,6 +4,10 @@
     {!! Form::text('name', null ,['class' => 'form-control' ]) !!}
 </div>
 
+<div class="form-group col-lg-12 clearfix">
+    {!! Form::label('contactfile', 'Contact File') !!}
+    {!! Form::file('contactfile', null ,['class' => 'form-control' ]) !!}
+</div>
 
 <div class="form-group col-lg-6 clearfix">
     {!! Form::label('status', 'Status') !!}

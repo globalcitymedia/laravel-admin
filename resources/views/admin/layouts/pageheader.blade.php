@@ -17,16 +17,16 @@
         </li>
     @endforeach
 </ol>
-<ul class=" list col-lg-6 text-right">
+<ol class="col-lg-6 text-right" style="list-style: none;">
     @if(isset($object_name) && !Request::is('*create'))
     <li>
         <a href="{{url('/admin/'.$object_name.'/create')}}"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
-    </li>
+
     @endif
     @if(isset($object_name) && $object_name == 'contacts' && Request::is('*edit'))
-    <li>
+
         <a class="btn" href="/admin/contacts/{{$contact->id}}/audit"><i class="fa fa-history" aria-hidden="true"></i> Audit history</a>
     </li>
     @endif
 
-</ul>
+</ol>

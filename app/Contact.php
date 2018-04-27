@@ -42,7 +42,6 @@ class Contact extends BaseModel
         //$this->attributes['published_at'] = Carbon::parse($date);
     }
 
-
     public function signup(Contact $contact)
     {
 
@@ -53,16 +52,28 @@ class Contact extends BaseModel
         //dd($contact);
     }
 
-
     public function sendVerificationEmail(Contact $contact)
     {
         $contact->notify(new VerifyEmail($contact));
         $this->createAudit($contact->id, "Verification email sent to ".$contact->email);
     }
 
-
     public function verified()
     {
-        return $this->verification_key === null && $this->email_verified === yes;
+        return $this->verification_key === null && $this->email_verified === 'yes';
     }
+
+    public function verifiedString()
+    {
+        return ($this->verified() === true)?"Verified":"Not verified";
+    }
+
+
+
+
+    public function contactLists()
+    {
+        return $this->belongsToMany('App\ContactList','contact_list_contact','contact_list_id','contact_id');
+    }
+
 }

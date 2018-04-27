@@ -9,6 +9,7 @@
             {{--<th></th>--}}
             <th >Name</th>
             <th >Email</th>
+            <th >Email Verified</th>
             <th >Status</th>
             <th >Updated</th>
             <th></th>
@@ -17,8 +18,10 @@
         <tbody>
         @foreach($contacts as $contact)
             <tr>
-                <th scope="row"><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->name()}}</a></th>
-                <th scope="row"><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->email}}</a></th>
+                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->name()}}</a></td>
+                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->email}}</a></td>
+                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->verifiedString()}}</a></td>
+
                 <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->getStatus()}}</a></td>
                 <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->updated_at->diffForHumans()}}</a></td>
                 <td><a href="" onclick="event.preventDefault();

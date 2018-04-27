@@ -27,8 +27,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
     Route::get('admin', 'HomeController@index');
     Route::resource('admin/admin_users', 'AdminUsersController');
+
+    //Route::get('admin/contact-lists/{contactList}/contacts', 'ContactListContactsController@contacts');
+    Route::resource('admin/contact-lists/{selected_contact_list}/contacts', 'ContactListContactsController');
     Route::resource('admin/contact-lists', 'ContactListsController');
+
+    Route::get('admin/contacts/{contact}/audit', 'ContactAuditController@index');
     Route::resource('admin/contacts', 'ContactsController');
+
 //    Route::get('admin', function () {
 //        return "Admin";
 //    });

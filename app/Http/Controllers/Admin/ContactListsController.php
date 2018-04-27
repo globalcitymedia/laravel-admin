@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contact;
 use App\ContactList;
 use App\Tracker;
 use Illuminate\Http\Request;
@@ -54,22 +55,24 @@ class ContactListsController extends Controller
         $request['created_by'] = Auth::user()->id;
         $request['updated_by'] = Auth::user()->id;
         $contact_list = new ContactList($request->all());
+
+        $file = $request->file('contactfile');
         //dd($contact_list);
+        $this->importContacts($file);
 
-        // Get uploaded CSV file
-        $file = $request->file('csv');
-        dump($file);
-        dd($request);
-
-
-        //$contact_list->saveOrFail($contact_list->toArray());
+        $contact = $contact_list->saveOrFail($contact_list->toArray());
+        //dd($contact);
 
         //dd($ip_add);
-        //$tracker = new Tracker();
-        //$tracker->track('New contact list: '.$request['name']);
+        $tracker = new Tracker();
+        $tracker->track('New contact list: '.$request['name']);
 
-        //return redirect($this->admin_url);
+        return redirect($this->admin_url);
     }
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -79,7 +82,13 @@ class ContactListsController extends Controller
      */
     public function show(ContactList $contactList)
     {
-        //
+        $page_title = $contactList->name;
+        $object_name = $this->object_name;
+        $breadcrums = array(['title'=>'Contact Lists', 'url'=>'/admin/contact-lists'],
+            ['title'=>$contactList->name, 'url'=>'/admin/contact-lists/'.$contactList->id]);
+
+        return view('admin.contact_lists.show', compact('page_title','object_name','breadcrums','contactList'));
+
     }
 
     /**
@@ -109,8 +118,13 @@ class ContactListsController extends Controller
         $request['updated_by'] = Auth::user()->id;
         $contactList->update($request->all());
 
+        $file = $request->file('contactfile');
+        //dd($contact_list);
+        $this->importContacts($file);
+
         $tracker = new Tracker();
         $tracker->track('Contact list updated: '.$request['name']);
+
         return redirect($this->admin_url);
     }
 
@@ -129,6 +143,27 @@ class ContactListsController extends Controller
     }
 
 
+    private function importContacts($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename))
+            return false;
+
+        $header = null;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== false)
+        {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            {
+                if (!$header)
+                    $header = $row;
+                else
+                    $data[] = array_combine($header, $row);
+            }
+            fclose($handle);
+        }
+
+        return $data;
+    }
 
     private function csvToArray($filename = '', $delimiter = ',')
     {
@@ -151,6 +186,7 @@ class ContactListsController extends Controller
 
         return $data;
     }
+
 
     private function uploadFile($file){
         $date = Carbon::now();

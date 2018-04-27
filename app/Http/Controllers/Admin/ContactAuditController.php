@@ -1,13 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Contact;
 use App\ContactAudit;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ContactAuditController extends Controller
 {
+
+    protected $object_name = 'contacts';
+    protected $admin_url = '/admin/audits';
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +19,11 @@ class ContactAuditController extends Controller
      */
     public function index(Contact $contact)
     {
-       $contactaudit = ContactAudit::where('contact_id',$contact->id)->all();
-       dd($contactaudit);
+        $audit = $contact->audit;
+        $page_title = "audit trail";
+        $object_name = $this->object_name;
+        $breadcrums = array(['title'=>'Contacts', 'url'=>'/admin/contacts'],['title'=>$contact->name(), 'url'=>'/admin/contacts/'.$contact->id],['title'=>'audit trail', 'url'=>'']);
+        return view('admin.audits.index', compact('audit','page_title','object_name','breadcrums','contact'));
     }
 
     /**

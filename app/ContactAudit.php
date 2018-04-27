@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContactAudit extends BaseModel
+class ContactAudit extends Model
 {
     protected $fillable = ['desc','contact_id'];
 

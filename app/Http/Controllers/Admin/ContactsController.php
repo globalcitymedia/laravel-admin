@@ -41,9 +41,9 @@ class ContactsController extends Controller
     {
         $page_title = "Create New Contact";
         $object_name = $this->object_name;
-        $contact_list = ContactList::all();
+        $contact_lists = ContactList::all();
         $breadcrums = array(['title'=>'Contacts', 'url'=>'/admin/contacts'],['title'=>'Create New Contact', 'url'=>'']);
-        return view('admin.contacts.create', compact('page_title','object_name','breadcrums','contact_list'));
+        return view('admin.contacts.create', compact('page_title','object_name','breadcrums','contact_lists'));
     }
 
     /**
@@ -92,9 +92,11 @@ class ContactsController extends Controller
     {
         $page_title = "Edit list";
         $object_name = $this->object_name;
+
         $breadcrums = array(['title'=>'Contacts', 'url'=>'/admin/contacts'],['title'=>'Edit list', 'url'=>'']);
-        $contact_list = ContactList::all();
-        return view('admin.contacts.edit', compact('page_title','object_name','breadcrums','contact','contact_list'));
+        $contact_lists = ContactList::all();
+
+        return view('admin.contacts.edit', compact('page_title','object_name','breadcrums','contact','contact_lists'));
     }
 
     /**
@@ -108,6 +110,12 @@ class ContactsController extends Controller
     {
         $request['updated_by'] = Auth::user()->id;
         $contact->update($request->all());
+
+        $cl_ids = $request->contact_lists;
+
+        $contact->contactLists()->sync($cl_ids);
+        //dd($contact->contactLists);
+        //$contact->contactLists()->attach($cl_ids);
         $tracker = new Tracker();
         $tracker->track('Contact updated: '.$request['email']);
         return redirect($this->admin_url);

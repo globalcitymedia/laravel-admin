@@ -11,15 +11,17 @@
             <th >Status</th>
             <th >Updated</th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach($contact_lists as $list)
             <tr>
-                <th scope="row"><a href="/admin/contact-lists/{{$list->id}}/edit">{{$list->name}}</a></th>
+                <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->name}}</a></td>
                 <td></td>
-                <td><a href="/admin/contact-lists/{{$list->id}}/edit">{{$list->getStatus()}}</a></td>
-                <td><a href="/admin/contact-lists/{{$list->id}}/edit">{{$list->updated_at->diffForHumans()}}</a></td>
+                <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->getStatus()}}</a></td>
+                <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->updated_at->diffForHumans()}}</a></td>
+                <td><a href="/admin/contact-lists/{{$list->id}}/edit">Edit</a></td>
                 <td><a href="" onclick="event.preventDefault();
                             document.getElementById('delete_authors_form{{$list->id}}').submit();"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i></a>
