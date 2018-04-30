@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Contact;
 use App\ContactList;
+use App\Http\Requests\ContactRequest;
 use App\Tracker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
+//use Illuminate\Validation\Validator;
 
 class ContactListsController extends Controller
 {
@@ -58,11 +62,11 @@ class ContactListsController extends Controller
 
         $file = $request->file('contactfile');
         //dd($contact_list);
-        $this->importContacts($file);
 
-        $contact = $contact_list->saveOrFail($contact_list->toArray());
-        //dd($contact);
 
+        $contact_list->saveOrFail($contact_list->toArray());
+        //dd($contact_list);
+        $this->importContacts($file,$contact_list);
         //dd($ip_add);
         $tracker = new Tracker();
         $tracker->track('New contact list: '.$request['name']);
@@ -113,14 +117,14 @@ class ContactListsController extends Controller
      * @param  \App\ContactList  $contactList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContactList $contactList)
+    public function update(Request $request, ContactList $contact_list)
     {
         $request['updated_by'] = Auth::user()->id;
-        $contactList->update($request->all());
+        $contact_list->update($request->all());
 
         $file = $request->file('contactfile');
         //dd($contact_list);
-        $this->importContacts($file);
+        $this->importContacts($file,',',$contact_list);
 
         $tracker = new Tracker();
         $tracker->track('Contact list updated: '.$request['name']);
@@ -143,10 +147,11 @@ class ContactListsController extends Controller
     }
 
 
-    private function importContacts($filename = '', $delimiter = ',')
+    private function importContacts($filename = '', $delimiter = ',',ContactList $contact_list)
     {
         if (!file_exists($filename) || !is_readable($filename))
             return false;
+
 
         $header = null;
         $data = array();
@@ -154,15 +159,49 @@ class ContactListsController extends Controller
         {
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
             {
+
                 if (!$header)
                     $header = $row;
-                else
-                    $data[] = array_combine($header, $row);
+                else {
+                    $item_array = array_combine($header, $row);
+                    $data[] = $item_array;
+
+//                    $validator = Validator::make($item_array, [
+//                        'email' => 'required|email|max:255|unique:contacts,email'
+//                    ]);
+
+                    $existing_contact =  Contact::where('email', $item_array['email'])->first();
+
+                    if($existing_contact === null){
+                        $item_array['verification_key'] = str_random(25);
+                        $item_array['renewal_date'] = config('variables.renewal_datetime');
+                        $item_array['status'] = 2;
+                        $contact = new Contact($item_array);
+                        $contact->signup($contact);
+                        //$contact_list->contacts()->detach($contact->id);
+                        $contact_list->contacts()->syncWithoutDetaching($contact->id);
+                    }else{
+                        //$contact_list->contacts()->detach($existing_contact->id);
+                        $contact_list->contacts()->syncWithoutDetaching($existing_contact->id);
+                    }
+                    //
+
+                    //dump($contact);
+
+                    ///$this->saveContact($item_array);
+                }
+
             }
             fclose($handle);
         }
-
+        dd("End");
         return $data;
+    }
+
+
+    public function saveContact($data)
+    {
+        dump($data);
     }
 
     private function csvToArray($filename = '', $delimiter = ',')

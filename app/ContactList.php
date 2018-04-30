@@ -11,6 +11,6 @@ class ContactList extends BaseModel
 
     public function contacts()
     {
-        return $this->belongsToMany('App\Contact','contact_list_contact','contact_id','contact_list_id');
+        return $this->belongsToMany('App\Contact','contact_list_contact','contact_list_id')->withTimestamps();
     }
 }

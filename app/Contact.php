@@ -44,12 +44,12 @@ class Contact extends BaseModel
 
     public function signup(Contact $contact)
     {
-
         $this->saveOrFail($contact->toArray());
         $this->createAudit($contact->id, "New contact registered ".$contact->email);
 
         $this->sendVerificationEmail($contact);
         //dd($contact);
+        return $contact->id;
     }
 
     public function sendVerificationEmail(Contact $contact)
@@ -69,11 +69,9 @@ class Contact extends BaseModel
     }
 
 
-
-
     public function contactLists()
     {
-        return $this->belongsToMany('App\ContactList','contact_list_contact','contact_list_id','contact_id');
+        return $this->belongsToMany('App\ContactList','contact_list_contact','contact_id')->withTimestamps();
     }
 
 }
