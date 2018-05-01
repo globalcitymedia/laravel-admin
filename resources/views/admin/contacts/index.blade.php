@@ -1,9 +1,9 @@
 @extends('admin.layouts.skin2')
 
 @section('body')
+    @include('admin.contacts.search')
 
-
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             {{--<th></th>--}}

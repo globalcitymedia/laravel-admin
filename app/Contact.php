@@ -6,11 +6,12 @@ namespace App;
 use App\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 class Contact extends BaseModel
 {
 
-    use Notifiable;
+    use Notifiable, Searchable;
 
     protected $fillable = ['first_name','last_name','email','status','email_verified','verification_key','renewal_date'];
 

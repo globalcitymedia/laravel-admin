@@ -16,8 +16,12 @@
 //});
 
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
-Route::get('/verify/{verification_key}','SignupController@verify')->name('verify');
-Route::get('/verified/{verification_key}','SignupController@verified')->name('verified');
+Route::get('/verify/{verification_key}', 'SignupController@verify')->name('verify');
+Route::get('/verified/{verification_key}', 'SignupController@verified')->name('verified');
+Route::get('/register', 'Auth\LoginController@showLoginForm');
+Route::get('/users/register', function () {
+    return redirect('/login');
+});
 
 Auth::routes();
 
@@ -32,6 +36,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::resource('admin/contact-lists/{selected_contact_list}/contacts', 'ContactListContactsController');
     Route::resource('admin/contact-lists', 'ContactListsController');
 
+
+    Route::post('admin/contacts/search', 'ContactsController@search');
     Route::get('admin/contacts/{contact}/audit', 'ContactAuditController@index');
     Route::resource('admin/contacts', 'ContactsController');
 

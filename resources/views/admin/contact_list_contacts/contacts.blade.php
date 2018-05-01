@@ -5,12 +5,12 @@
     @include('admin.contact_lists.contact_list')
 
     <div class="col-lg-12 list-group">
-        <a class="btn btn-primary" href="/admin/contact-lists/{{$selected_contact_list->id}}/contacts">View Contacts</a>
-        <a class="btn btn-primary" href="/admin/contact-lists/{{$selected_contact_list->id}}/contacts/create">Add Contact</a>
-        <a class="btn btn-primary" href="/admin/contact-lists/{{$selected_contact_list->id}}/contacts/create">Add Contact</a>
+
+        {{--@include('admin.contacts.search')--}}
+        <a class="btn btn-primary col-sm-2" href="/admin/contact-lists/{{$selected_contact_list->id}}/contacts">View Contacts</a>
     </div>
 
-    <?php $contacts = $selected_contact_list->contacts()->get(); ?>
+    <?php $contacts = $selected_contact_list->contacts()->paginate(10); ?>
     <table class="table">
         <thead>
         <tr>
@@ -37,6 +37,8 @@
         </tbody>
     </table>
 
-
+    <div class="text-align-center">
+        {{ $contacts->links() }}
+    </div>
 
 @endsection

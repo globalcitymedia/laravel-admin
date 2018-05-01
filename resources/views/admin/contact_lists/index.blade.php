@@ -18,10 +18,11 @@
         @foreach($contact_lists as $list)
             <tr>
                 <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->name}}</a></td>
-                <td></td>
+                <td>{{$list->contacts()->count()}}</td>
                 <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->getStatus()}}</a></td>
                 <td><a href="/admin/contact-lists/{{$list->id}}/contacts">{{$list->updated_at->diffForHumans()}}</a></td>
                 <td><a href="/admin/contact-lists/{{$list->id}}/edit">Edit</a></td>
+                <td>Download</td>
                 <td><a href="" onclick="event.preventDefault();
                             document.getElementById('delete_authors_form{{$list->id}}').submit();"><i
                                 class="fa fa-trash-o" aria-hidden="true"></i></a>

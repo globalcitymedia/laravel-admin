@@ -44,18 +44,23 @@
 <div class="container">
     <div class="row panel-body">
         <div class="col-sm-3">
-            Email Verified
+            Email Verified?
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-9">
             {{$contact->verifiedString()}}
         </div>
         <div class="col-sm-3">
             Last updated
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-9">
             {{$contact->updated_at->diffForHumans()}}
         </div>
     </div>
+
+</div>
+
+<div>
+    @include('admin.audits.audit')
 </div>
 
 <script>

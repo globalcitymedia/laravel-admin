@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contact;
+use App\ContactAudit;
 use App\ContactList;
 use App\Http\Requests\ContactRequest;
 use App\Tracker;
@@ -19,6 +20,19 @@ class ContactsController extends Controller
      */
     protected $object_name = 'contacts';
     protected $admin_url = '/admin/contacts';
+
+    public function search(Request $request)
+    {
+
+        $page_title = "Search contacts";
+        $search = $request['search'];
+
+        $contacts = Contact::search('%'.$search.'%')->paginate(config('variables.paginate_count'));
+        //dd($contacts);
+        $breadcrums = array(['title'=>$page_title, 'url'=>'']);
+        //dd($users);
+        return view('admin.contacts.index', compact('contacts','page_title','object_name','breadcrums'));
+    }
 
     public function index()
     {
@@ -96,7 +110,9 @@ class ContactsController extends Controller
         $breadcrums = array(['title'=>'Contacts', 'url'=>'/admin/contacts'],['title'=>'Edit list', 'url'=>'']);
         $contact_lists = ContactList::all();
 
-        return view('admin.contacts.edit', compact('page_title','object_name','breadcrums','contact','contact_lists'));
+        $audit = $contact->audit;
+
+        return view('admin.contacts.edit', compact('page_title','object_name','breadcrums','contact','contact_lists','audit'));
     }
 
     /**
@@ -108,16 +124,20 @@ class ContactsController extends Controller
      */
     public function update(ContactRequest $request, Contact $contact)
     {
+
         $request['updated_by'] = Auth::user()->id;
         $contact->update($request->all());
 
         $cl_ids = $request->contact_lists;
 
         $contact->contactLists()->sync($cl_ids);
+        $contact->createAudit($contact->id,"Contact updated by admin". '. Contact list ids: '. implode(" ",$cl_ids),Auth::user()->name());
         //dd($contact->contactLists);
         //$contact->contactLists()->attach($cl_ids);
         $tracker = new Tracker();
-        $tracker->track('Contact updated: '.$request['email']);
+        $tracker->track('Contact updated: '.$request['email']. '. Contact list ids: '. implode(" ",$cl_ids)  );
+
+        //dd($tra)
         return redirect($this->admin_url);
     }
 
