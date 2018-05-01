@@ -129,6 +129,7 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $contact->contactLists()->detach();
         $contact->delete();
         $tracker = new Tracker();
         $tracker->track('Contact deleted: '.$contact->email);

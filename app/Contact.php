@@ -74,4 +74,5 @@ class Contact extends BaseModel
         return $this->belongsToMany('App\ContactList','contact_list_contact','contact_id')->withTimestamps();
     }
 
+
 }
