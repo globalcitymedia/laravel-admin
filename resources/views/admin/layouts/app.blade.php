@@ -91,6 +91,35 @@
                     <a href="{{url('/admin')}}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                 </li>
 
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#templates">
+                        <i class="fa fa-file" aria-hidden="true"></i> Email Templates <i
+                                class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="templates" class="{{(Request::is('*templates*'))?'':'collapse'}}">
+                        <li>
+                            <a href="{{url('/admin/email-templates')}}"> Email Templates</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/admin/email-templates/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add New Template</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#scheduletask">
+                        <i class="fa fa-file" aria-hidden="true"></i> Schedule tasks <i
+                                class="fa fa-fw fa-caret-down"></i></a>
+                    <ul id="scheduletask" class="{{(Request::is('*schedule*'))?'':'collapse'}}">
+                        <li>
+                            <a href="{{url('/admin/schedule-tasks')}}"> Schedule Tasks</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/admin/schedule-tasks/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add New Schedule Task</a>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <li>

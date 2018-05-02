@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 use App\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;

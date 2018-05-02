@@ -40,6 +40,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::post('admin/contacts/search', 'ContactsController@search');
     Route::get('admin/contacts/{contact}/audit', 'ContactAuditController@index');
     Route::resource('admin/contacts', 'ContactsController');
+    Route::resource('admin/email-templates', 'EmailTemplateController');
+    Route::resource('admin/schedule-tasks', 'ScheduleTaskController');
 
 //    Route::get('admin', function () {
 //        return "Admin";
