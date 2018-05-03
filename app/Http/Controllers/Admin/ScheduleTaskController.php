@@ -7,12 +7,13 @@ use App\EmailTemplate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleTaskRequest;
 use App\ScheduleTask;
+use App\Tracker;
 use Illuminate\Http\Request;
 
 class ScheduleTaskController extends Controller
 {
-    protected $object_name = 'email-templates';
-    protected $admin_url = '/admin/email-templates';
+    protected $object_name = 'schedule-tasks';
+    protected $admin_url = '/admin/schedule-tasks';
 
     /**
      * Display a listing of the resource.
@@ -44,9 +45,12 @@ class ScheduleTaskController extends Controller
         $object_name = $this->object_name;
         $admin_url = $this->admin_url;
 
-        $email_templates = EmailTemplate::all();
-        $contact_lists = ContactList::all();
+        $email_templates = array_prepend(EmailTemplate::pluck('name', 'id')->toArray(), 'Please select','0');
 
+        //dd($email_templates);
+
+        $contact_lists = ContactList::all();
+        //dd($contact_lists);
         $breadcrums = array(['title' => $page_title, 'url' => '']);
         //dd($users);
         return view('admin.schedule_tasks.create', compact('email_templates','contact_lists','page_title', 'object_name', 'breadcrums','admin_url'));
@@ -60,13 +64,14 @@ class ScheduleTaskController extends Controller
      */
     public function store(ScheduleTaskRequest $request)
     {
+
+
         $schdule_task = new ScheduleTask($request->all());
 
         $schdule_task->save($schdule_task->toArray());
 
-
         $tracker = new Tracker();
-        $tracker->track('New schedule task has been created: ' . $request['name']);
+        $tracker->track('New schedule task has been created: ');
 
         return redirect($this->admin_url);
 
@@ -91,7 +96,18 @@ class ScheduleTaskController extends Controller
      */
     public function edit(ScheduleTask $scheduleTask)
     {
-        //
+        $page_title = "Edit Schedule Tasks";
+        $object_name = $this->object_name;
+        $admin_url = $this->admin_url;
+
+        $email_templates = array_prepend(EmailTemplate::pluck('name', 'id')->toArray(), 'Please select','0');
+
+        $contact_lists = ContactList::all();
+
+        $breadcrums = array(['title' => $page_title, 'url' => '']);
+        //dd($users);
+        return view('admin.schedule_tasks.edit', compact('scheduleTask','email_templates','contact_lists','page_title', 'object_name', 'breadcrums','admin_url'));
+
     }
 
     /**
@@ -101,10 +117,16 @@ class ScheduleTaskController extends Controller
      * @param  \App\ScheduleTask  $scheduleTask
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ScheduleTask $scheduleTask)
+    public function update(ScheduleTaskRequest $request, ScheduleTask $scheduleTask)
     {
-        //
+        $scheduleTask->update($request->all());
+
+        $tracker = new Tracker();
+        $tracker->track('The schedule task has been updated.');
+
+        return redirect($this->admin_url);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -114,6 +136,9 @@ class ScheduleTaskController extends Controller
      */
     public function destroy(ScheduleTask $scheduleTask)
     {
-        //
+        $scheduleTask->delete();
+        $tracker = new Tracker();
+        $tracker->track('Email template has been deleted.');
+        return redirect($this->admin_url);
     }
 }

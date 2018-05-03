@@ -6,9 +6,9 @@
 
         @include('errors.list')
 
-        {!! Form::open(['url'=>'admin/email-templates', 'enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['url'=>'admin/schedule-tasks', 'enctype'=>'multipart/form-data']) !!}
 
-        @include('admin.email_templates.form', ['submitButtonText' => 'Create'])
+        @include('admin.schedule_tasks.form', ['submitButtonText' => 'Create'])
 
         {!! Form::close() !!}
 

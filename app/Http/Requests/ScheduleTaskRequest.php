@@ -13,7 +13,7 @@ class ScheduleTaskRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class ScheduleTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email_template_id' => 'required',
+            'contact_lists' => 'required',
+            'scheduled_at' => 'required|date',
         ];
     }
 }

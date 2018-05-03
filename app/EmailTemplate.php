@@ -11,4 +11,8 @@ class EmailTemplate extends BaseModel
     protected $dates = [
         'deleted_at'
     ];
+
+    public function name(){
+        return $this->name;
+    }
 }

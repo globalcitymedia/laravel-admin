@@ -19,6 +19,11 @@ return [
     'renewal_datetime' => date_format(new DateTime('+730 Days'), 'Y-m-d\TH:i'),
     'current_datetime' => date_format(new DateTime(), 'Y-m-d\TH:i'),
 
+    'scheduled_task_status' => [
+        '0' => 'Please select',
+        '1' => 'Scheduled',
+        '2' => 'Sent'
+    ],
 
     'userstatus' => [
         0 => 'Please select',

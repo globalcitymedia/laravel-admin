@@ -40,7 +40,7 @@
 <div class="form-group clearfix col-lg-12">
     {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control' ]) !!}
 </div>
-
+@if(isset($contact))
 <div class="container">
     <div class="row panel-body">
         <div class="col-sm-3">
@@ -58,7 +58,7 @@
     </div>
 
 </div>
-
+@endif
 <div>
     @include('admin.audits.audit')
 </div>

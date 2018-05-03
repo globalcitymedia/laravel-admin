@@ -7,8 +7,8 @@
         <!-- partials -->
         @include('errors.list')
 
-        {!! Form::model($emailTemplate, ['method' => 'PATCH', 'action'=> ['Admin\EmailTemplateController@update',$emailTemplate->id], 'enctype'=>'multipart/form-data']) !!}
-        @include('admin.email_templates.form', ['submitButtonText' => 'Update'])
+        {!! Form::model($scheduleTask, ['method' => 'PATCH', 'action'=> ['Admin\ScheduleTaskController@update',$scheduleTask->id], 'enctype'=>'multipart/form-data']) !!}
+        @include('admin.schedule_tasks.form', ['submitButtonText' => 'Update'])
 
         {!! Form::close() !!}
 

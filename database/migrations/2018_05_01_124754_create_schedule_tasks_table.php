@@ -16,7 +16,8 @@ class CreateScheduleTasksTable extends Migration
         Schema::create('schedule_tasks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('email_template_id')->unsigned()->nullable();
-            $table->dateTime('schedule_at')->nullable();
+            $table->dateTime('scheduled_at')->nullable();
+            $table->dateTime('sent_at')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('status')->nullable();
