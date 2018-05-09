@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\ContactAudit;
+use App\ContactList;
+use App\Http\Requests\SubscriptionRequest;
+use Illuminate\Http\Request;
 
 class SignupController extends Controller
 {
@@ -26,5 +29,36 @@ class SignupController extends Controller
         return redirect()
             ->route('home')
             ->with('success', 'Account verified');
+    }
+
+
+    public function subscription()
+    {
+        $contact_lists = ContactList::all();
+        return view('subscription.new',compact('contact_lists'));
+    }
+
+    public function saveSubscription(SubscriptionRequest $request)
+    {
+        $email =  ($request['email']);
+        $ex_contact = Contact::where('email',$email)->first();
+        if(is_null($ex_contact)){
+            $contact = new  Contact($request->all());
+            $contact->signup($contact->toArray());
+        } else {
+            $contact_lists =  ($request['contact_lists']);
+            $ex_contact->contactLists()->syncWithoutDetaching($contact_lists);
+            dd("Alread exist");
+        }
+
+        return redirect('/subscription-confirmation');
+
+    }
+
+    public function subscriptionConfirmation(){
+
+        dd(Request::path());
+        return view('subscription.confirmation');
+
     }
 }

@@ -23,6 +23,10 @@ Route::get('/users/register', function () {
     return redirect('/login');
 });
 
+Route::get('/subscription', 'SignupController@subscription');
+Route::post('/subscription', 'SignupController@saveSubscription');
+
+
 Auth::routes();
 
 
