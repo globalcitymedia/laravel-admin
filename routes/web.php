@@ -23,8 +23,8 @@ Route::get('/users/register', function () {
     return redirect('/login');
 });
 
-Route::get('/subscription', 'SignupController@subscription');
-Route::post('/subscription', 'SignupController@saveSubscription');
+Route::get('/glp-subscription', 'SignupController@glpSubscription');
+Route::post('/glp-subscription', 'SignupController@saveGLPSubscription');
 
 
 Auth::routes();

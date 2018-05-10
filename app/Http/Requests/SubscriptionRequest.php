@@ -29,7 +29,20 @@ class SubscriptionRequest extends FormRequest
             'email' => 'required|email',
             'contact_lists' => 'required',
         ];
-
         return $rules;
+    }
+
+
+    public function messages()
+    {
+
+        $messages = [
+            'first_name'    => 'The :attribute and :other must match.',
+            'last_name'    => 'The :attribute must be exactly :size.',
+            'email' => 'The :attribute value :input is not between :min - :max.',
+            'contact_lists'      => 'The :attribute must be one of the following',
+        ];
+
+        return $messages;
     }
 }

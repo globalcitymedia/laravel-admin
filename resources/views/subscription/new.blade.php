@@ -12,7 +12,7 @@
 
         @include('errors.list')
 
-        {!! Form::open(['url'=>'/subscription', 'enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['url'=>'/glp-subscription', 'enctype'=>'multipart/form-data']) !!}
 
         @include('subscription.form', ['submitButtonText' => 'Create'])
 

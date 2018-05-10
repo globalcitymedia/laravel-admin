@@ -32,16 +32,18 @@ class SignupController extends Controller
     }
 
 
-    public function subscription()
+    public function glpSubscription()
     {
         $contact_lists = ContactList::all();
         return view('subscription.new',compact('contact_lists'));
     }
 
-    public function saveSubscription(SubscriptionRequest $request)
+    public function saveGLPSubscription(SubscriptionRequest $request)
     {
         $email =  ($request['email']);
         $ex_contact = Contact::where('email',$email)->first();
+        $subscription_list  = $request['contact_lists'];
+        dd($subscription_list);
         if(is_null($ex_contact)){
             $contact = new  Contact($request->all());
             $contact->signup($contact->toArray());
