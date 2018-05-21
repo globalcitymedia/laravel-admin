@@ -25,7 +25,7 @@ class BaseModel extends Model
 
     public function createAudit($contact_id, $desc, $by=null)
     {
-        echo "Create Audit trail";
+        //echo "Create Audit trail";
         $audit = new ContactAudit();
         $audit['contact_id'] = $contact_id;
         $audit['desc'] = $desc;

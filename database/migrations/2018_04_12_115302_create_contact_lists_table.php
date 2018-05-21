@@ -16,9 +16,13 @@ class CreateContactListsTable extends Migration
         Schema::create('contact_lists', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('display_name');
+            $table->text('description');
             $table->string('status')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
+            $table->string('type');
+            $table->string('website');
             $table->softDeletes();
             $table->timestamps();
         });

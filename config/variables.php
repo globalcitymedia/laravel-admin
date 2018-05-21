@@ -59,5 +59,37 @@ return [
     'linkedin' => 'https://www.linkedin.com/company/',
     'instagram' => 'https://www.instagram.com/',
 
+    'websites' => [
+        '' => 'Please select',
+        'no_website' =>'Do not show on any website',
+        'globallegalpost' =>'Global Legal Post',
+        'roboticslawjournal' =>'Robotics Law Journal',
+        'luxurylawalliance' =>'Luxury Law Alliance',
+        'all_websites' =>'Show on all websites',
+    ],
+
+    'contact_list_types' => [
+        '' => 'Please select',
+        'permanent' =>'Permanent',
+        'flex' =>'Flex'
+    ],
+
+    'countries' => [
+        '' => 'Please select',
+        'afghanistan'=>'Afghanistan',
+        'albania'=> 'Albania',
+        'algeria'=> 'Algeria'
+    ],
+    
+'job_titles' => [
+    '0' => 'Please select',
+    '1' => 'Private practice law firm',
+    '2' => 'Company in house legal department',
+    '3' => 'Outsourcing company',
+    '4' => 'Public sector/Government',
+    '5' => 'Marketing/advertising agency',
+    '6' => 'Recruitment consultant',
+    '7' => 'Other',
+]   
 
 ];

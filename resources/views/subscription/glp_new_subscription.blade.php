@@ -14,7 +14,7 @@
 
         {!! Form::open(['url'=>'/glp-subscription', 'enctype'=>'multipart/form-data']) !!}
 
-        @include('subscription.form', ['submitButtonText' => 'Create'])
+        @include('subscription.form', ['submitButtonText' => 'Submit'])
 
         {!! Form::close() !!}
 

@@ -6,8 +6,17 @@ use App\BaseModel;
 
 class ContactList extends BaseModel
 {
-    protected $fillable = ['name','status'];
+    protected $fillable = ['name','display_name','status','description','type','website'];
 
+    public function scopeLiveList($query)
+    {
+        $query->where([['website','!=', 'no_website'],['deleted_at','=', null],['status','=', 1]]);
+    }
+
+    public function scopeGlp($query)
+    {
+        $query->where([['website','=', 'globallegalpost']]);
+    }
 
     public function contacts()
     {

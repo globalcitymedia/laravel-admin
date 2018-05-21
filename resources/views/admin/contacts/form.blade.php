@@ -14,6 +14,21 @@
 </div>
 
 <div class="form-group col-lg-6 clearfix">
+    {!! Form::label('job_title', 'Job title') !!}
+    {!! Form::select('job_title',config('variables.job_titles'),null,['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-lg-6 clearfix">
+    {!! Form::label('company', 'Company name') !!}
+    {!! Form::text('company', null ,['class' => 'form-control' ]) !!}
+</div>
+
+<div class="form-group col-lg-6 clearfix">
+    {!! Form::label('country', 'Country') !!}
+    {!! Form::select('country',config('variables.countries'),null,['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group col-lg-6 clearfix">
     {!! Form::label('status', 'Status') !!}
     {!! Form::select('status',config('variables.status'),null,['class' => 'form-control']) !!}
 </div>

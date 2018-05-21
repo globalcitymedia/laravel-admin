@@ -51,8 +51,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         //$this->middleware('admin');
-        return redirect('/login');
-        //return view('auth.register');
+//        return redirect('/login');
+        return view('auth.register');
     }
 
 

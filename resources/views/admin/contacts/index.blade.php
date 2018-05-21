@@ -7,20 +7,22 @@
         <thead>
         <tr>
             {{--<th></th>--}}
-            <th >Name</th>
-            <th >Email</th>
-            <th >Email Verified</th>
-            <th >Status</th>
-            <th >Updated</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Email Verified</th>
+            <th>Status</th>
+            <th>Updated</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach($contacts as $contact)
             <tr>
-                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->name()}}</a></td>
-                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->email}}</a></td>
-                <td ><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->verifiedString()}}</a></td>
+                <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->name()}}</a></td>
+                <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->email}}</a></td>
+                <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->verifiedString()}}</a>
+                    <br>{{$contact->email_verified}}
+                </td>
 
                 <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->getStatus()}}</a></td>
                 <td><a href="/admin/contacts/{{$contact->id}}/edit">{{$contact->updated_at->diffForHumans()}}</a></td>
@@ -44,6 +46,10 @@
         {{ $contacts->links() }}
     </div>
 
-
+    <div class="text-align-center">
+        @if(Request::is('*/contacts/no-email-send'))
+            <a href="/admin/contacts/send-verification-emails" class="btn btn-primary">Send Verification Emails</a>
+        @endif
+    </div>
 
 @endsection

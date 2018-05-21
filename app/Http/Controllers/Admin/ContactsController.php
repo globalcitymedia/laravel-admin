@@ -78,6 +78,11 @@ class ContactsController extends Controller
 
         $contact->signup($contact);
 
+        $cl_ids = $request->contact_lists;
+        $contact->contactLists()->sync($cl_ids);
+        $contact->createAudit($contact->id,"Contact updated by admin". '. Contact list ids: '. implode(" ",$cl_ids),Auth::user()->name());
+
+
         $tracker = new Tracker();
         $tracker->track('Contact created: '.$request['email']);
 
@@ -124,7 +129,6 @@ class ContactsController extends Controller
      */
     public function update(ContactRequest $request, Contact $contact)
     {
-
         $request['updated_by'] = Auth::user()->id;
         $contact->update($request->all());
 
@@ -155,4 +159,59 @@ class ContactsController extends Controller
         $tracker->track('Contact deleted: '.$contact->email);
         return redirect($this->admin_url);
     }
+
+
+    public function noEmailSend()
+    {
+        $page_title = "Contacts: No verification email send";
+        $object_name = $this->object_name;
+        //$articles = Article::orderby('created_at','desc')->get();
+        $contacts = Contact::where('email_verified','no email send')->paginate(config('variables.paginate_count'));
+
+        $breadcrums = array(['title'=>$page_title, 'url'=>'']);
+        //dd($users);
+        return view('admin.contacts.index', compact('contacts','page_title','object_name','breadcrums'));
+    }
+
+
+    public function emailSentNotVerified()
+    {
+        $page_title = "Contacts: Email Sent Not Verified";
+        $object_name = $this->object_name;
+        //$articles = Article::orderby('created_at','desc')->get();
+        $contacts = Contact::where('email_verified','email sent')->paginate(config('variables.paginate_count'));
+
+        $breadcrums = array(['title'=>$page_title, 'url'=>'']);
+        //dd($users);
+        return view('admin.contacts.index', compact('contacts','page_title','object_name','breadcrums'));
+    }
+
+
+    public function verifiedEmails()
+    {
+        $page_title = "Contacts: Verified Emails";
+        $object_name = $this->object_name;
+        //$articles = Article::orderby('created_at','desc')->get();
+        $contacts = Contact::where('email_verified','verified')->paginate(config('variables.paginate_count'));
+
+        $breadcrums = array(['title'=>$page_title, 'url'=>'']);
+        //dd($users);
+        return view('admin.contacts.index', compact('contacts','page_title','object_name','breadcrums'));
+    }
+
+    public function sendVerificationEmails()
+    {
+        echo "Send Email";
+        $contacts = Contact::where('email_verified','no email send')->limit(2)->get();
+
+        foreach ($contacts as $contact) {
+            $contact->sendManagePreferenceEmail($contact);
+
+            $contact->email_verified = 'email sent';
+
+            $contact->save();
+        }
+        return redirect('/admin/contacts/no-email-send');
+    }
+
 }

@@ -142,12 +142,25 @@
                         <i class="fa fa-file" aria-hidden="true"></i> Contacts <i
                                 class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="contacts" class="{{(Request::is('*contacts*'))?'':'collapse'}}">
+                        {{--<li>--}}
+                            {{--<a href="{{url('/admin/contacts/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>--}}
+                                {{--Add New Contact</a>--}}
+                        {{--</li>--}}
                         <li>
-                            <a href="{{url('/admin/contacts')}}"> Contacts</a>
+                            <a href="{{url('/admin/contacts/')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                All Contacts</a>
                         </li>
                         <li>
-                            <a href="{{url('/admin/contacts/create')}}"><i class="fa fa-plus" aria-hidden="true"></i>
-                                Add New Contact</a>
+                            <a href="{{url('/admin/contacts/no-email-send')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                No email send</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/admin/contacts/email-sent-not-verified')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Email sent, not verified</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/admin/contacts/verified-emails')}}"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Verified Emails</a>
                         </li>
                     </ul>
                 </li>

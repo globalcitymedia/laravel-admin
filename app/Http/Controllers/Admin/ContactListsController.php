@@ -54,6 +54,15 @@ class ContactListsController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|unique:contact_lists|max:255',
+            'description' => 'required',
+            'type' => 'required',
+            'website' => 'required',
+        ]);
+
+
         $request['created_by'] = Auth::user()->id;
         $request['updated_by'] = Auth::user()->id;
         $contact_list = new ContactList($request->all());
@@ -63,7 +72,7 @@ class ContactListsController extends Controller
 
         $contact_list->saveOrFail($contact_list->toArray());
         //dd($contact_list);
-        $this->importContacts($file, $contact_list);
+        $this->importContacts($file,',', $contact_list);
         //dd($ip_add);
         $tracker = new Tracker();
         $tracker->track('New contact list: ' . $request['name']);
@@ -155,7 +164,6 @@ class ContactListsController extends Controller
         if (!file_exists($filename) || !is_readable($filename))
             return false;
 
-
         $header = null;
         $data = array();
         $existing_contacts = array();
@@ -180,10 +188,12 @@ class ContactListsController extends Controller
 
                     if ($existing_contact === null) {
                         $item_array['verification_key'] = str_random(25);
+                        $item_array['email_verified'] = 'no email send';
                         $item_array['renewal_date'] = config('variables.renewal_datetime');
-                        $item_array['status'] = 2;
+                        $item_array['status'] = 1;
                         $contact = new Contact($item_array);
-                        $contact->signup($contact);
+                        //signupOnImport will not send the email
+                        $contact->signupOnImport($contact);
                         //$contact_list->contacts()->detach($contact->id);
                         $contact_list->contacts()->syncWithoutDetaching($contact->id);
                         $new_contacts   = $new_contacts + 1;

@@ -24,7 +24,9 @@
 
 body {
     font-family: 'ProximaNova Regular', sans-serif;
+    font-family:  Arial, Helvetica, sans-serif;
     overflow-x: hidden;
+    /*font-size: 16px;*/
 }
 
 h1, h2, h3, h4 {
@@ -51,6 +53,17 @@ p {
 a {
     color: #ef6c65;
 }
+
+.form-check-input, .form-radio-input {
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    margin: 0px 10px;
+    padding: 0;
+    outline: 0;
+}
+
+.form-check, .form-check label {font-size: 16px; font-weight: bold;}
 
 .btn-primary {
     background: #ef6c65;
