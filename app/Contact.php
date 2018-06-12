@@ -68,6 +68,8 @@ class Contact extends BaseModel
     public function sendVerificationEmail(Contact $contact)
     {
         $contact->notify(new VerifyEmail($contact));
+        $this->email_verified = 'email sent';
+        $this->save();
         $this->createAudit($contact->id, "Verification email sent to ".$contact->email);
     }
 

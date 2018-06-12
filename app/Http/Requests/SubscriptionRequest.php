@@ -26,9 +26,18 @@ class SubscriptionRequest extends FormRequest
         $rules = [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|email',
+            'email' => 'required|email|max:255|unique:contacts,email',
             'contact_lists' => 'required',
         ];
+
+        if($this->method() == 'PATCH'):
+            $url = explode('/',$this->path());
+            $email_id = array_last($url);
+            //dd($url);
+            $rules ['email'] = 'required|email|max:255|unique:contacts,email,'.$email_id;
+            $rules ['password'] = '';
+        endif;
+
         return $rules;
     }
 

@@ -44,10 +44,11 @@ class ManagePreference extends Notification
     public function toMail($notifiable)
     {
         $url = url('/manage-preference/'.encrypt($this->contact->verification_key));
-
+        $unsubscribe_url = url('/unsubscribe/'.encrypt($this->contact->verification_key));
+        $name = $this->contact->first_name;
         return (new MailMessage)
             ->subject('We would like to stay in touch')
-            ->markdown('mail.contacts.manage_preference', ['url' => $url, 'name'=>'Elan']);
+            ->markdown('mail.contacts.manage_preference', ['url' => $url,'unsubscribe_url'=>$unsubscribe_url, 'name'=>$name]);
     }
 
     /**

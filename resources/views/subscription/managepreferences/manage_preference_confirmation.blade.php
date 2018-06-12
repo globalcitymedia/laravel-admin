@@ -11,18 +11,15 @@
                         <h1>Thank you!</h1>
                         <br>
 
-
-                        <p>Thank you for registering to our newsletters. We have sent you an email with a link to
-                            verify your email address.</p><br>
+                        <p>Thank you for for updating your newsletters preferences.</p><br>
 
                         {{--<a href="">View your preference</a><br>--}}
 
                         <p>Global City Media</p>
                         <br>
                         <a href="{{config('variables.privacy_policy_url')}}" target="_blank">Privacy Policy</a> |
-                        <a href="{{config('variables.terms_url')}}" target="_blank">Terms & Conditions</a>
+                        <a href="{{config('variables.terms_url')}}" target="_blank">Terms & Conditions</a> |
                         <a href="/send-email-to-manage-preferences" target="_blank">Manage Subscription</a>
-
                     </div>
                 </div>
             </div>

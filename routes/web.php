@@ -21,9 +21,20 @@ Route::get('/test', function () {
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
 Route::get('/verify/{verification_key}', 'SignupController@verify')->name('verify');
 Route::get('/verified/{verification_key}', 'SignupController@verified')->name('verified');
+
+Route::get('/send-email-to-manage-preferences', 'ManageUserPreferenceController@sendManagePreferenceEmail');
+Route::post('/send-email-to-manage-preferences', 'ManageUserPreferenceController@sendingManagePreferenceEmail');
+
+Route::PATCH('/manage-preference/{email_id}', 'ManageUserPreferenceController@updateManagePreference');
+
+
+Route::get('/unsubscribe/{tkn}', 'UnsubscribeController@unsubscribe');
+Route::get('/unsubscribe/step2/{tkn}', 'UnsubscribeController@unsubscribeStep2');
+
 Route::get('/manage-preference/{tkn}', 'ManageUserPreferenceController@managePreference');
-Route::post('/manage-preference/{tkn}', 'ManageUserPreferenceController@update');
+
 Route::get('/subscription-confirmation', 'SignupController@subscriptionConfirmation');
+
 //Route::get('/register', 'Auth\LoginController@showLoginForm');
 
 

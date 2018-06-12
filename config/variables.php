@@ -90,6 +90,8 @@ return [
     '5' => 'Marketing/advertising agency',
     '6' => 'Recruitment consultant',
     '7' => 'Other',
-]   
+],
 
+    'privacy_policy_url' => 'http://www.globallegalpost.com/global-legal-post-terms/',
+    'terms_url' => 'http://www.globallegalpost.com/global-legal-post-terms/',
 ];

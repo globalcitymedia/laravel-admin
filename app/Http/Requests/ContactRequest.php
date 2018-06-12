@@ -31,12 +31,11 @@ class ContactRequest extends FormRequest
             'email' => 'required|email|max:255|unique:contacts,email'
         ];
 
-
         if($this->method() == 'PATCH'):
             $url = explode('/',$this->path());
-            $user_id = array_last($url);
+            $email_id = array_last($url);
             //dd($url);
-            $rules ['email'] = 'required|email|max:255|unique:contacts,email,'.$user_id;
+            $rules ['email'] = 'required|email|max:255|unique:contacts,email,'.$email_id;
         endif;
 
 

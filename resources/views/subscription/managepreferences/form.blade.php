@@ -41,7 +41,8 @@
             {!! Form::checkbox('contact_lists[]', $contact_list->id, null,['class' => 'form-check-input']) !!}
         @endif
 
-        {!! Form::label('contact_lists', $contact_list->name.'\n '.$contact_list->description) !!}
+        {!! Form::label('contact_lists', $contact_list->name) !!}
+        <p style="font-weight: normal">{{$contact_list->description}}</p>
     </div>
 @endforeach
 
@@ -98,5 +99,11 @@
     @endif
 
     {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control' ]) !!}
+
+
 </div>
 
+
+<div class="form-group col-lg-12 ">
+    <a href="/unsubscribe/step2/{{$tkn}}" class="btn btn-primary btn-gray  col-lg-12">Unsubscribe me now</a>
+</div>

@@ -41,17 +41,24 @@ class VerifyEmail extends Notification
      * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+//    public function toMail($notifiable)
+//    {
+//        //dd($this->contact);
+//        return (new MailMessage)
+//            ->subject('Confirm Your Email Address')
+//            ->line('Please verify your email to continue.')
+//            ->action('Verify email', url('/verify/'.$this->contact->verification_key))
+//            ->line('Thank you for using our application!');
+//
+//    }
     public function toMail($notifiable)
     {
-        //dd($this->contact);
+        $url = url('/verify/'.$this->contact->verification_key);
+        $name = $this->contact->first_name;
         return (new MailMessage)
             ->subject('Confirm Your Email Address')
-            ->line('Please verify your email to continue.')
-            ->action('Verify email', url('/verify/'.$this->contact->verification_key))
-            ->line('Thank you for using our application!');
-        
+            ->markdown('mail.contacts.verify_email', ['url' => $url, 'name'=>$name]);
     }
-
     /**
      * Get the array representation of the notification.
      *
