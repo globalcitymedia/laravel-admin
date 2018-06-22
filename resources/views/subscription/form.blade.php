@@ -40,8 +40,8 @@
         @else
             {!! Form::checkbox('contact_lists[]', $contact_list->id, null,['class' => 'form-check-input']) !!}
         @endif
-
-        {!! Form::label('contact_lists', $contact_list->name.'\n '.$contact_list->description) !!}
+        <label style="display: contents;" for="contact_lists">{!! $contact_list->name !!}</label><br>
+        <label style="display: contents; margin-top: 10px;" for="contact_lists">{!! $contact_list->description !!}</label>
     </div>
 @endforeach
 

@@ -4,7 +4,6 @@ namespace App;
 
 use App\Notifications\ManagePreference;
 use App\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Scout\Searchable;
 
@@ -13,18 +12,19 @@ class Contact extends BaseModel
 
     use Notifiable, Searchable;
 
-    protected $fillable = ['first_name','last_name','email','company','job_title','country','status','email_verified','verification_key','renewal_date'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'company','work_type', 'job_title', 'country', 'status', 'email_verified', 'verification_key', 'renewal_date'];
 
     protected $dates = [
         'renewal_date',
         'deleted_at'
     ];
+
     /**
      * @return array
      */
     public function name()
     {
-        return $this->first_name. ' ' . $this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
 
@@ -47,7 +47,7 @@ class Contact extends BaseModel
     {
         //dd($contact);
         $this->saveOrFail($contact->toArray());
-        $this->createAudit($contact->id, "New contact registered ".$contact->email);
+        $this->createAudit($contact->id, "New contact registered " . $contact->email);
         //dd($contact);
         //$this->sendVerificationEmail($contact);
 
@@ -58,7 +58,7 @@ class Contact extends BaseModel
     {
         //dd($contact);
         $this->saveOrFail($contact->toArray());
-        $this->createAudit($contact->id, "New contact registered ".$contact->email);
+        $this->createAudit($contact->id, "New contact registered " . $contact->email);
         //dd($contact);
         $this->sendVerificationEmail($contact);
 
@@ -70,13 +70,13 @@ class Contact extends BaseModel
         $contact->notify(new VerifyEmail($contact));
         $this->email_verified = 'email sent';
         $this->save();
-        $this->createAudit($contact->id, "Verification email sent to ".$contact->email);
+        $this->createAudit($contact->id, "Verification email sent to " . $contact->email);
     }
 
     public function sendManagePreferenceEmail(Contact $contact)
     {
         $contact->notify(new ManagePreference($contact));
-        $this->createAudit($contact->id, "We would like to stay in touch - email sent to ".$contact->email);
+        $this->createAudit($contact->id, "We would like to stay in touch - email sent to " . $contact->email);
     }
 
     public function verified()
@@ -86,13 +86,13 @@ class Contact extends BaseModel
 
     public function verifiedString()
     {
-        return ($this->verified() === true)?"Verified":"Not verified";
+        return ($this->verified() === true) ? "Verified" : "Not verified";
     }
 
 
     public function contactLists()
     {
-        return $this->belongsToMany('App\ContactList','contact_list_contact','contact_id')->withTimestamps();
+        return $this->belongsToMany('App\ContactList', 'contact_list_contact', 'contact_id')->withTimestamps();
     }
 
     public function routeNotificationForMail($notification)

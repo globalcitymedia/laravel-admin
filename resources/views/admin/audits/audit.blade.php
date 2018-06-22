@@ -1,5 +1,10 @@
 @if(isset($audit))
-    <table class="table table-responsive-md table-hover ">
+    <table class="table table-responsive-md table-hover bg-info ">
+        <thead>
+        <tr>
+            <th colspan="5">Audit trail</th>
+        </tr>
+        </thead>
         <thead>
         <tr>
             <th>contact_id</th>

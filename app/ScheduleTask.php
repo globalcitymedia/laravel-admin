@@ -1,25 +1,25 @@
 <?php
 
 namespace App;
-
-use Illuminate\Database\Eloquent\Model;
+use DateTime;
 
 class ScheduleTask extends BaseModel
 {
-    protected $fillable = ['email_template_id','scheduled_at','sent_at','status'];
+    protected $fillable = ['email_template_id', 'scheduled_at', 'sent_at', 'status'];
 
     protected $dates = [
-        'deleted_at','scheduled_at','sent_at'
+        'deleted_at', 'scheduled_at', 'sent_at'
     ];
+
+    public function contactLists()
+    {
+        return $this->belongsToMany('App\ContactList', 'contact_list_schdule_task', 'schedule_task_id')->withTimestamps();
+    }
 
     public function template()
     {
         //return "---hello";
         return $this->belongsTo('App\EmailTemplate', 'email_template_id');
-    }
-
-    public function getContactLists(){
-        return '---getContactLists';
     }
 
     //set<fieldname>Attribute mutator
@@ -53,12 +53,29 @@ class ScheduleTask extends BaseModel
         return Carbon::parse($date)->format('Y-m-d H:i');
     }
 
-    public function getSentAt(){
-        return '--sent at';
+    public function getSentAt()
+    {
+        return ($this->sent_at != null) ? Carbon::parse($this - sent_at)->format('Y-m-d H:i') : null;
     }
 
     public function getStatus()
     {
-        return config('variables.scheduled_task_status')[(is_null($this->status))?0:$this->status];
+        return config('variables.scheduled_task_status')[(is_null($this->status)) ? 0 : $this->status];
     }
+
+    public function routeNotificationForMail($notification)
+    {
+        return 'elansiva@hotmail.com';
+    }
+
+    public function scopeDispatchable($query)
+    {
+        //scheduled_at
+        //sent_at
+        //status
+        $current_datetime = date_format(new DateTime(), 'Y-m-d H:i:00');
+        $query->where([['scheduled_at','<', $current_datetime],['sent_at','=', null],['status','=', 1]]);
+        //$query->where([['sent_at', '=', null], ['status', '=', 1]]);
+    }
+
 }

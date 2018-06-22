@@ -22,7 +22,7 @@ class ScheduleTaskController extends Controller
      */
     public function index()
     {
-        $page_title = "Schedule Tasks";
+        $page_title = "Scheduled Tasks";
         $object_name = $this->object_name;
         $admin_url = $this->admin_url;
 
@@ -41,7 +41,7 @@ class ScheduleTaskController extends Controller
      */
     public function create()
     {
-        $page_title = "Create Schedule Tasks";
+        $page_title = "Create Scheduled Tasks";
         $object_name = $this->object_name;
         $admin_url = $this->admin_url;
 
@@ -64,11 +64,13 @@ class ScheduleTaskController extends Controller
      */
     public function store(ScheduleTaskRequest $request)
     {
-
-
         $schdule_task = new ScheduleTask($request->all());
 
+        //dd($schdule_task);
         $schdule_task->save($schdule_task->toArray());
+
+        $cl_ids = $request->contact_lists;
+        $schdule_task->contactLists()->sync($cl_ids);
 
         $tracker = new Tracker();
         $tracker->track('New schedule task has been created: ');
@@ -96,7 +98,7 @@ class ScheduleTaskController extends Controller
      */
     public function edit(ScheduleTask $scheduleTask)
     {
-        $page_title = "Edit Schedule Tasks";
+        $page_title = "Edit Scheduled Task";
         $object_name = $this->object_name;
         $admin_url = $this->admin_url;
 
@@ -120,6 +122,9 @@ class ScheduleTaskController extends Controller
     public function update(ScheduleTaskRequest $request, ScheduleTask $scheduleTask)
     {
         $scheduleTask->update($request->all());
+
+        $cl_ids = $request->contact_lists;
+        $scheduleTask->contactLists()->sync($cl_ids);
 
         $tracker = new Tracker();
         $tracker->track('The schedule task has been updated.');

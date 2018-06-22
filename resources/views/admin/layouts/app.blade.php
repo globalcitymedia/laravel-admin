@@ -30,7 +30,9 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <!--ckeditor-->
     <script src="/theme/admin/js/jquery.js"></script>
-    <script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=e8ihqbsjw8c6u9kycdwftsl2gol23g4a6ozmw7dkuwr7iog6"></script>
+
+    {{--<script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>--}}
     <![endif]-->
     <!-- Scripts -->
     <script>

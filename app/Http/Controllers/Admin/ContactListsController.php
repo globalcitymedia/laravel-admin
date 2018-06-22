@@ -72,7 +72,7 @@ class ContactListsController extends Controller
 
         $contact_list->saveOrFail($contact_list->toArray());
         //dd($contact_list);
-        $this->importContacts($file,',', $contact_list);
+        $this->importContacts($file, ',', $contact_list);
         //dd($ip_add);
         $tracker = new Tracker();
         $tracker->track('New contact list: ' . $request['name']);
@@ -188,15 +188,20 @@ class ContactListsController extends Controller
 
                     if ($existing_contact === null) {
                         $item_array['verification_key'] = str_random(25);
-                        $item_array['email_verified'] = 'no email send';
-                        $item_array['renewal_date'] = config('variables.renewal_datetime');
+                        $item_array['email_verified'] = 'verified';
+                        $item_array['renewal_date'] = config('variables.import_renewal_datetime');
                         $item_array['status'] = 1;
+                        //print_r($item_array);
+                        $item_array['work_type'] = $this->convertWorkTypeForCSVImport($item_array['work_type']);
+                        $item_array['country'] = $this->convertCountryForCSVImport($item_array['country']);
+
+                        //dd($item_array);
                         $contact = new Contact($item_array);
                         //signupOnImport will not send the email
                         $contact->signupOnImport($contact);
                         //$contact_list->contacts()->detach($contact->id);
                         $contact_list->contacts()->syncWithoutDetaching($contact->id);
-                        $new_contacts   = $new_contacts + 1;
+                        $new_contacts = $new_contacts + 1;
                     } else {
                         //$contact_list->contacts()->detach($existing_contact->id);
 
@@ -227,6 +232,31 @@ class ContactListsController extends Controller
         return $data;
     }
 
+    private function convertWorkTypeForCSVImport($wt)
+    {
+        $wt_key = "";
+        foreach (config('variables.work_type') as $key => $type):
+            if ($type == trim($wt)):
+                $wt_key =  $key;
+            endif;
+
+        endforeach;
+
+        return $wt_key;
+    }
+
+    private function convertCountryForCSVImport($cnty)
+    {
+        $ct_key = "";
+        foreach (config('variables.countries') as $key => $country):
+            if ($country == trim($cnty)):
+                $ct_key =  $key;
+            endif;
+
+        endforeach;
+
+        return $ct_key;
+    }
 
 //   TODO:: Remove this function
     private function csvToArray($filename = '', $delimiter = ',')

@@ -6,7 +6,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Date</th>
+            <th>Date {{date_format(new DateTime(), 'Y-m-dH:i')}}</th>
             <th>Template</th>
             <th>Contacts</th>
             <th>Scheduled at</th>
@@ -19,7 +19,16 @@
             <tr>
                 <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->created_at->toFormattedDateString()}}</a></td>
                 <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->template->name}}</a></td>
-                <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->getContactLists()}}</a></td>
+                <td>
+                    <a href="{{$admin_url.'/'.$item->id}}/edit">
+                        <?php $contactLists = $item->contactLists ?>
+                        @if(sizeof($contactLists))
+                            @foreach($contactLists as $contactList)
+                                {{$contactList->display_name}}<br>
+                            @endforeach
+                        @endif
+                    </a>
+                </td>
                 <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->scheduled_at->toDayDateTimeString()}}</a></td>
                 <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->getSentAt()}}</a></td>
                 <td><a href="{{$admin_url.'/'.$item->id}}/edit">{{$item->getStatus()}}</a></td>
@@ -29,8 +38,8 @@
                                 class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
-            <form class="delete"   action="{{$admin_url.'/'.$item->id}}" method="POST"
-                    id="delete_authors_form{{$item->id}}">
+            <form class="delete" action="{{$admin_url.'/'.$item->id}}" method="POST"
+                  id="delete_authors_form{{$item->id}}">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
             </form>
@@ -41,5 +50,7 @@
     <div class="text-align-center">
         {{ $list_items->links() }}
     </div>
-
+    <div class="text-align-center">
+        <a href="/admin/schedule-tasks/dispatch" class="btn btn-primary">Dispatch</a>
+    </div>
 @endsection

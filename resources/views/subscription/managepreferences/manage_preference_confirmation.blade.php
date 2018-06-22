@@ -11,7 +11,7 @@
                         <h1>Thank you!</h1>
                         <br>
 
-                        <p>Thank you for for updating your newsletters preferences.</p><br>
+                        <p>Thank you for updating your newsletters preferences.</p><br>
 
                         {{--<a href="">View your preference</a><br>--}}
 

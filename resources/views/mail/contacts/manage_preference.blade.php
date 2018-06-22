@@ -21,13 +21,13 @@ Thank you,
 
 The Data Team
 
-Global City Media Ltd
-London
-T: +44 (0) 20 7193 5342
+Global City Media Ltd<br>
+London<br>
+T: +44 (0) 20 7193 5342<br>
 
-M: +44 (0) 7545 204502
-Switchboard: +44 (0) 20 7193 5801
-www.globallegalpost.com
+M: +44 (0) 7545 204502<br>
+Switchboard: +44 (0) 20 7193 5801<br>
+www.globallegalpost.com<br>
 
 @component('mail::button', ['url' => $unsubscribe_url])
     Unsubscribe

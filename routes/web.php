@@ -66,7 +66,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
     Route::resource('admin/contacts', 'ContactsController');
     Route::resource('admin/email-templates', 'EmailTemplateController');
+
+    //
+    Route::get('admin/schedule-tasks/dispatch', 'DispatchTaskController@executeTask');
     Route::resource('admin/schedule-tasks', 'ScheduleTaskController');
+
 
 //    Route::get('admin', function () {
 //        return "Admin";
