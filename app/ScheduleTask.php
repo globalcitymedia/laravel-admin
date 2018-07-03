@@ -1,11 +1,12 @@
 <?php
 
 namespace App;
+use Carbon\Carbon;
 use DateTime;
 
 class ScheduleTask extends BaseModel
 {
-    protected $fillable = ['email_template_id', 'scheduled_at', 'sent_at', 'status'];
+    protected $fillable = ['email_template_id', 'scheduled_at', 'sent_at', 'status','locked_email_template_id'];
 
     protected $dates = [
         'deleted_at', 'scheduled_at', 'sent_at'
@@ -19,8 +20,9 @@ class ScheduleTask extends BaseModel
     public function template()
     {
         //return "---hello";
-        return $this->belongsTo('App\EmailTemplate', 'email_template_id');
+        return $this->belongsTo('App\LockedEmailTemplate', 'locked_email_template_id');
     }
+
 
     //set<fieldname>Attribute mutator
     public function setScheduledAtAttribute($date)
@@ -55,7 +57,7 @@ class ScheduleTask extends BaseModel
 
     public function getSentAt()
     {
-        return ($this->sent_at != null) ? Carbon::parse($this - sent_at)->format('Y-m-d H:i') : null;
+        return ($this->sent_at != null) ? Carbon::parse($this->sent_at)->format('Y-m-d H:i') : null;
     }
 
     public function getStatus()
@@ -73,7 +75,8 @@ class ScheduleTask extends BaseModel
         //scheduled_at
         //sent_at
         //status
-        $current_datetime = date_format(new DateTime(), 'Y-m-d H:i:00');
+        $date = new DateTime(null, new \DateTimeZone('Europe/London'));
+        $current_datetime = date_format($date, 'Y-m-d H:i:00');
         $query->where([['scheduled_at','<', $current_datetime],['sent_at','=', null],['status','=', 1]]);
         //$query->where([['sent_at', '=', null], ['status', '=', 1]]);
     }

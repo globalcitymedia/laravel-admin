@@ -6,6 +6,7 @@ use App\ContactList;
 use App\EmailTemplate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleTaskRequest;
+use App\LockedEmailTemplate;
 use App\ScheduleTask;
 use App\Tracker;
 use Illuminate\Http\Request;
@@ -66,6 +67,16 @@ class ScheduleTaskController extends Controller
     {
         $schdule_task = new ScheduleTask($request->all());
 
+        $email_template = EmailTemplate::where('id',$schdule_task->email_template_id);
+
+        $locked_email_template = new LockedEmailTemplate($email_template->toArray());
+        $locked_email_template = $email_template;
+
+        $locked_email_template['email_templates_id'] = $email_template->id;
+        $locked_email_template_id = $this->lockTemplate($request->email_template_id);
+
+        $schdule_task['locked_email_template_id'] = $locked_email_template_id;
+
         //dd($schdule_task);
         $schdule_task->save($schdule_task->toArray());
 
@@ -121,6 +132,10 @@ class ScheduleTaskController extends Controller
      */
     public function update(ScheduleTaskRequest $request, ScheduleTask $scheduleTask)
     {
+        $locked_email_template_id = $this->lockTemplate($request->email_template_id);
+
+        $request['locked_email_template_id']= $locked_email_template_id;
+        //dd($request['locked_email_template_id']);
         $scheduleTask->update($request->all());
 
         $cl_ids = $request->contact_lists;
@@ -132,6 +147,21 @@ class ScheduleTaskController extends Controller
         return redirect($this->admin_url);
     }
 
+
+    private function lockTemplate($template_id){
+        $email_template = EmailTemplate::where('id',$template_id)->first();
+
+        $locked_email_template = new LockedEmailTemplate($email_template->toArray());
+        // $locked_email_template = $email_template;
+
+        $locked_email_template['email_templates_id'] = $email_template['id'];
+        //dd($locked_email_template);
+        unset($locked_email_template['status']);
+
+        $locked_email_template->save($locked_email_template->toArray());
+
+        return $locked_email_template->id;
+    }
 
     /**
      * Remove the specified resource from storage.
