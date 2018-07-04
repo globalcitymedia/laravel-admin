@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Mail\SendNewsletter;
 use App\Outbox;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class OutboxController extends Controller
 {
@@ -25,8 +27,15 @@ class OutboxController extends Controller
 
     public function sendEmails()
     {
-        $outbox = Outbox::orderBy('created_at', 'desc')->limit(10)->get();
+        $outbox = Outbox::orderBy('created_at', 'desc')->limit(2)->get();
 
-        dd($outbox);
+        //dd($outbox);
+        foreach ($outbox as $item):
+            //dump($receiptent);
+            $email_to = $item->email;
+            $email_to = "elansiva@hotmail.com";
+            Mail::to($email_to)->send(new SendNewsletter($item));
+            echo $item->email.'<br>';
+        endforeach;
     }
 }

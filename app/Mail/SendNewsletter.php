@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Outbox;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,14 +12,15 @@ class SendNewsletter extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $item;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Outbox $item)
     {
-        //
+        $this->item = $item;
     }
 
     /**
@@ -28,6 +30,6 @@ class SendNewsletter extends Mailable
      */
     public function build()
     {
-        return $this->view('email.newsletter.name');
+        return $this->view('admin.email.newsletter')->subject($this->item->subject);
     }
 }
