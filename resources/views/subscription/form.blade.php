@@ -14,8 +14,8 @@
 </div>
 
 <div class="form-group col-lg-6 clearfix">
-    {!! Form::label('job_title', 'Job title') !!}
-    {!! Form::select('job_title',config('variables.job_titles'),null,['class' => 'form-control']) !!}
+    {!! Form::label('work_type', 'Work type') !!}
+    {!! Form::select('work_type',config('variables.work_type'),null,['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-lg-6 clearfix">
@@ -31,7 +31,6 @@
 <div class="form-group col-lg-12 ">
     <h4><strong>Frequency of updates</strong></h4>
 </div>
-
 @foreach($contact_lists as $contact_list)
     <div class="form-group col-lg-12  form-check">
         @if(isset($contact))
@@ -40,8 +39,8 @@
         @else
             {!! Form::checkbox('contact_lists[]', $contact_list->id, null,['class' => 'form-check-input']) !!}
         @endif
-        <label style="display: contents;" for="contact_lists">{!! $contact_list->name !!}</label><br>
-        <label style="display: contents; margin-top: 10px;" for="contact_lists">{!! $contact_list->description !!}</label>
+        <label style="display: contents;" for="contact_lists">{!! $contact_list->display_name !!}</label><br>
+        {{--<label style="display: contents; margin-top: 10px;" for="contact_lists">{!! $contact_list->description !!}</label>--}}
     </div>
 @endforeach
 
@@ -91,6 +90,9 @@
     <p>All email updates are free of charge.</p>
 </div>
 
+<div class="form-group clearfix col-lg-12 g-recaptcha"
+     data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
+</div>
 
 <div class="form-group clearfix col-lg-12">
     @if(isset($tkn))

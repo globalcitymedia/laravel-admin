@@ -26,7 +26,9 @@ class ManageUserPreferenceController extends Controller
 
         $contact = Contact::withTrashed()->where('email', $email)->first();
 
-        if (sizeof($contact)):
+        //dd($contact);
+
+        if ($contact != null):
             $contact->sendManagePreferenceEmail($contact);
             return view('subscription.managepreferences.manage_preference_email_sent');
         else:

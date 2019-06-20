@@ -19,6 +19,7 @@ class Contact extends BaseModel
         'deleted_at'
     ];
 
+
     /**
      * @return array
      */
@@ -97,7 +98,13 @@ class Contact extends BaseModel
 
     public function routeNotificationForMail($notification)
     {
-        return 'elansiva@hotmail.com';
+        //return 'elansiva@hotmail.com';
+        //$email_to = 'elansiva@hotmail.com';
+        if (env('APP_ENV') == 'local'):
+            return env('TEST_EMAIL');
+        endif;
+        return $this->email;
     }
+
 
 }

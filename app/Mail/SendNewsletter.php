@@ -30,6 +30,8 @@ class SendNewsletter extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.email.newsletter')->subject($this->item->subject);
+        return $this->markdown('admin.email.newsletter')
+//            ->cc('benmartin@globalcitymedia.com')
+            ->subject($this->item->subject);
     }
 }

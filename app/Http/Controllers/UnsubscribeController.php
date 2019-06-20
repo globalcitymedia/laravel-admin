@@ -13,7 +13,7 @@ class UnsubscribeController extends Controller
         $page_title = "Unsubscribe / Manage Preferences";
         $decryptedtkn = decrypt($tkn);
 
-
+        //dd($decryptedtkn);
         $contact = Contact::withTrashed()->where('verification_key', $decryptedtkn)->firstOrFail();
 
         $contact_lists = ContactList::liveList()->get();
@@ -47,4 +47,7 @@ class UnsubscribeController extends Controller
         $tracker->track('Contact deleted: ' . $contact->email);
         return redirect($this->admin_url);
     }
+
+
+
 }

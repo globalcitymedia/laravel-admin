@@ -1,0 +1,4 @@
+Running scheduled command: "C:\php\php.exe" "artisan" scheduleTask:dispatch-tasks > "NUL" 2>&1
+Running scheduled command: "C:\php\php.exe" "artisan" outbox:send-news-updates > "NUL" 2>&1
+Running scheduled command: "C:\php\php.exe" "artisan" scheduleTask:dispatch-tasks > "NUL" 2>&1
+Running scheduled command: "C:\php\php.exe" "artisan" outbox:send-news-updates > "NUL" 2>&1

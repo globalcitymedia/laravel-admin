@@ -13,11 +13,15 @@ class Tracker extends Model
     public function track($desc=null)
     {
         $ip_add = $_SERVER['REMOTE_ADDR'];
-        $user = Auth::user();
+
         $track = new Tracker();
 
-        $track['user'] = $user->email;
-        $track['user_type']= $user->role;
+        if (Auth::check()):
+            $user = Auth::user();
+            $track['user'] = $user->email;
+            $track['user_type']= $user->role;
+        endif;
+
         $track['ip_address']= $ip_add;
         $track['desc']= $desc;
 

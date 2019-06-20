@@ -20,11 +20,11 @@ class User extends Authenticatable
     //        'first_name','last_name', 'email', 'password',
     //    ];
     // TODO::Uncomment $fillable
-    //    protected $fillable = [
-    //        'first_name', 'last_name', 'email', 'password', 'role', 'status'
-    //    ];
+        protected $fillable = [
+            'first_name', 'last_name', 'email', 'password', 'role', 'status'
+        ];
     //TODO::Remove $guarded
-    protected $guarded = [];
+//    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.

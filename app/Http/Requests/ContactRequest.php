@@ -26,8 +26,8 @@ class ContactRequest extends FormRequest
         $rules = [];
 
         $rules = [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+            'first_name' => 'max:255',
+            'last_name' => 'max:255',
             'email' => 'required|email|max:255|unique:contacts,email'
         ];
 

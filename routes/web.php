@@ -53,8 +53,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
     //Route::get('admin/contact-lists/{contactList}/contacts', 'ContactListContactsController@contacts');
     Route::resource('admin/contact-lists/{selected_contact_list}/contacts', 'ContactListContactsController');
+    Route::get('admin/contact-lists/{selected_contact_list}/download', 'ContactListContactsController@download');
+    Route::post('admin/contact-lists/{contact_list}/unsubscribe-contacts', 'ContactListsController@unsubscribeContacts');
     Route::resource('admin/contact-lists', 'ContactListsController');
-
 
     Route::post('admin/contacts/search', 'ContactsController@search');
     Route::get('admin/contacts/{contact}/audit', 'ContactAuditController@index');
@@ -63,6 +64,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::get('admin/contacts/verified-emails', 'ContactsController@verifiedEmails');
     Route::get('admin/contacts/send-verification-emails', 'ContactsController@sendVerificationEmails');
 
+    Route::get('admin/contacts/unsubscribed','UnsubscribeController@index');
+    Route::get('admin/contacts/unsubscribed/{id}/restore', 'UnsubscribeController@getUnsubscribeRecord');
+    Route::patch('admin/contacts/unsubscribed/{id}', 'UnsubscribeController@restore');
 
     Route::resource('admin/contacts', 'ContactsController');
     Route::resource('admin/email-templates', 'EmailTemplateController');
@@ -72,6 +76,15 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::resource('admin/schedule-tasks', 'ScheduleTaskController');
     Route::get('admin/outbox/dispatch', 'OutboxController@sendEmails');
     Route::resource('admin/outbox', 'OutboxController');
+
+
+    Route::get('admin/master', 'MasterController@main');
+    Route::POST('admin/master', 'MasterController@executeQuery');
+
+    Route::get('admin/master', 'MasterController@main');
+
+    Route::get('/admin/utility_functions/manual_unsubscribe', 'ManualUnSubscribeController@loadData');
+    Route::post('/admin/utility_functions/manual_unsubscribe', 'ManualUnSubscribeController@processLoadedData');
 
 //    Route::get('admin', function () {
 //        return "Admin";

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ReCaptcha;
+
 
 class SubscriptionRequest extends FormRequest
 {
@@ -28,6 +30,7 @@ class SubscriptionRequest extends FormRequest
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:contacts,email',
             'contact_lists' => 'required',
+            'g-recaptcha-response' => ['required', new Recaptcha],
         ];
 
         if($this->method() == 'PATCH'):

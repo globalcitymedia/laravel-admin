@@ -7,6 +7,9 @@
  */
 
 return [
+
+    'master_controller' => 'elansiva@hotmail.com',
+    'email_per_batch' => '400',
     /*Company name and */
     'paginate_count' => '20',
     'company_name' => 'Global City Media',
@@ -14,6 +17,8 @@ return [
 
     'tel' => '+44 (0) 20 7193 5801',
     'address' => '',
+
+
 
     'archive_datetime' => date_format(new DateTime('+730 Days'), 'Y-m-d\TH:i'),
     'renewal_datetime' => date_format(new DateTime('+730 Days'), 'Y-m-d\TH:i'),
@@ -347,4 +352,11 @@ return [
 
     'privacy_policy_url' => 'http://www.globallegalpost.com/global-legal-post-terms/',
     'terms_url' => 'http://www.globallegalpost.com/global-legal-post-terms/',
+
+    'uploadstatus' => [
+        '0' => 'Please select',
+        '1' => 'Subscribed',
+        '2' => 'Unsubscribed'
+
+    ]
 ];

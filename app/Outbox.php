@@ -15,6 +15,21 @@ class Outbox extends BaseModel
 
     protected $table = 'outbox';
 
+    public function name()
+    {
+        return trim($this->first_name.' '.$this->last_name);
+    }
+
+    public function greeting(){
+       return (empty($this->name())? 'Sir/Madam':$this->name());
+    }
+
+    public function scopeDeleted($query)
+    {
+        $query->where('deleted_at !=', null);
+    }
+
+
 }
 
 

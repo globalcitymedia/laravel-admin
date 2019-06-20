@@ -78,8 +78,8 @@ class SignupController extends Controller
         //$contact = Contact::where([['verification_key','=', $verification_key],['email_verified','!=',"verified"]])->toSql();
         $contact = Contact::where([['verification_key', '=', $verification_key], ['email_verified', '=', 'email sent']])->first();
 
-        ///dd($contact);
-        if (sizeof($contact) == 1) {
+        //dd($contact);
+        if ($contact != null) {
 
             $tkn = str_random(25);
             $contact->update(['email_verified' => 'verified', 'verification_key' => $tkn]);

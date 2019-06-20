@@ -46,6 +46,9 @@
 
     <!-- jQuery -->
     <script src="/theme/basic/js/jquery-2.2.3.min.js"></script>
+
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -71,7 +74,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{url('/')}}"><img src="/theme/basic/assets/images/gcm-logo.png" alt=""/></a>
+                <a class="navbar-brand" href="#"><img src="/theme/basic/assets/images/gcm-logo.png" alt=""/></a>
                 <a style="padding-top: 50px;" class="navbar-brand" href="#">{{config('variables.company_name')}}</a>
             </div>
 

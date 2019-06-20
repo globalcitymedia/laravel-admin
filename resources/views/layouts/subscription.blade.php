@@ -46,6 +46,7 @@
 
     <!-- jQuery -->
     <script src="/theme/basic/js/jquery-2.2.3.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
